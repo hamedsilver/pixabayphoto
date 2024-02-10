@@ -5,15 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pixabayphoto.MainApplication
+import com.example.pixabayphoto.R
 import com.example.pixabayphoto.databinding.FragmentSearchBinding
 import com.example.pixabayphoto.utils.collectLifecycleFlow
 import com.example.pixabayphoto.features.search.adapter.PhotosAdapter
 import com.example.pixabayphoto.features.search.adapter.SearchSuggestionAdapter
+import com.hamedsafari.filckrphotos.utils.KEY_LARGE_IMAGE_URL
+import com.hamedsafari.filckrphotos.utils.KEY_USER
+import com.hamedsafari.filckrphotos.utils.KEY_LIKES
+import com.hamedsafari.filckrphotos.utils.KEY_COMMENTS
+import com.hamedsafari.filckrphotos.utils.KEY_DOWNLOADS
 
 class SearchFragment : Fragment() {
 
@@ -64,15 +72,16 @@ class SearchFragment : Fragment() {
         }
 
         photoAdapter = PhotosAdapter {
-//            findNavController().navigate(
-//                R.id.action_to_DetailFragment,
-//                bundleOf(
-//                    KEY_IMAGE_ID to it.id,
-//                    KEY_IMAGE_TITLE to it.title,
-//                    KEY_IMAGE_URL to it.image_url,
-//                    KEY_THUMBNAIL_IMAGE_URL to it.thumbnail_url
-//                )
-//            )
+            findNavController().navigate(
+                R.id.action_to_DetailFragment,
+                bundleOf(
+                    KEY_LARGE_IMAGE_URL to it.largeImageURL,
+                    KEY_USER to it.user,
+                    KEY_LIKES to it.likes,
+                    KEY_COMMENTS to it.comments,
+                    KEY_DOWNLOADS to it.downloads
+                )
+            )
         }
 
         binding.recyclerView.apply {
@@ -94,6 +103,7 @@ class SearchFragment : Fragment() {
                 is SearchUiState.HasSearchInput -> {
                     photoAdapter.submitList(state.photos)
                 }
+
                 is SearchUiState.NoSearchInput -> {
                     suggestionAdapter.submitList(state.suggestions)
                     photoAdapter.submitList(emptyList())
@@ -109,7 +119,8 @@ class SearchFragment : Fragment() {
             binding.progress.isVisible = state.isLoading
 
             binding.errorMessage.text = state.errorMessages
-            binding.errorMessage.isVisible = state.errorMessages.isNotEmpty() && state.isLoading.not()
+            binding.errorMessage.isVisible =
+                state.errorMessages.isNotEmpty() && state.isLoading.not()
         }
     }
 

@@ -21,7 +21,7 @@ class SearchViewModel(
     private val repository: PhotosRepository
 ) : ViewModel() {
 
-    val searchTerms = MutableStateFlow("")
+    val searchTerms = MutableStateFlow("fruits")
     private val viewModelState = MutableStateFlow(SearchViewModelState(isLoading = false))
 
     // UI state exposed to the UI

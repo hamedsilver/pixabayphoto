@@ -15,5 +15,8 @@ internal fun PhotosMetaDataApiModel.toDomainModel() =
         id = id.orEmpty(),
         user = user.orEmpty(),
         thumbnailUrl = previewURL.orEmpty(),
-        largeImageURL = largeImageURL.orEmpty()
+        largeImageURL = largeImageURL.orEmpty(),
+        likes = likes ?: 0,
+        downloads = downloads ?: 0,
+        comments = comments ?: 0
     )

@@ -19,6 +19,7 @@
     <fragment
         android:id="@+id/DetailFragment"
         android:name="com.example.pixabayphoto.features.detail.DetailFragment"
+        tools:layout="@layout/fragment_detail"
         >
     </fragment>
 
