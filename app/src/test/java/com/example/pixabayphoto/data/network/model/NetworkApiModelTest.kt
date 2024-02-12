@@ -17,8 +17,8 @@ class NetworkApiModelTest{
         assertEquals(listOf(PhotosMetaDataApiModel(
             id = "1",
             tags = "",
-            previewURL = "",
-            largeImageURL = "",
+            previewURL = "https://pixabay.com/get/ga8a79cc84fedf181716caf6beaff9811c21100a51e0833c8c3b3af3fef39421f4723e94ff04c84addfd96cca431c54a3dadd93f57c22aaacebfb449589b8c748_1280.jpg",
+            largeImageURL = "https://cdn.pixabay.com/photo/2017/05/11/19/44/fresh-fruits-2305192_150.jpg",
             views = 1,
             downloads = 1,
             likes = 1,
@@ -36,7 +36,7 @@ class NetworkApiModelTest{
 
         assertEquals("test_id", entity.id)
         assertEquals("test_title", entity.user)
-        assertEquals("https://farm1.staticflickr.com/test_server/test_id_test_secret_b.jpg", entity.largeImageURL)
-        assertEquals("https://farm1.staticflickr.com/test_server/test_id_test_secret_t.jpg", entity.thumbnailUrl)
+        assertEquals("https://pixabay.com/get/ga8a79cc84fedf181716caf6beaff9811c21100a51e0833c8c3b3af3fef39421f4723e94ff04c84addfd96cca431c54a3dadd93f57c22aaacebfb449589b8c748_1280.jpg", entity.largeImageURL)
+        assertEquals("https://cdn.pixabay.com/photo/2017/05/11/19/44/fresh-fruits-2305192_150.jpg", entity.thumbnailUrl)
     }
 }
