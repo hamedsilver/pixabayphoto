@@ -20,4 +20,7 @@ data class Photo(
     val likes: Int,
     val downloads: Int,
     val comments: Int,
+    val likes_formated: String,
+    val downloads_formated: String,
+    val comments_formated: String,
 )

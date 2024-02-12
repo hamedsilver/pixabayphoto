@@ -1,5 +1,6 @@
 package com.example.pixabayphoto.features.search
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pixabayphoto.MainApplication
 import com.example.pixabayphoto.R
 import com.example.pixabayphoto.databinding.FragmentSearchBinding
+import com.example.pixabayphoto.domain.Photo
 import com.example.pixabayphoto.utils.collectLifecycleFlow
 import com.example.pixabayphoto.features.search.adapter.PhotosAdapter
 import com.example.pixabayphoto.features.search.adapter.SearchSuggestionAdapter
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.hamedsafari.filckrphotos.utils.KEY_LARGE_IMAGE_URL
 import com.hamedsafari.filckrphotos.utils.KEY_USER
 import com.hamedsafari.filckrphotos.utils.KEY_LIKES
@@ -72,16 +75,14 @@ class SearchFragment : Fragment() {
         }
 
         photoAdapter = PhotosAdapter {
-            findNavController().navigate(
-                R.id.action_to_DetailFragment,
-                bundleOf(
-                    KEY_LARGE_IMAGE_URL to it.largeImageURL,
-                    KEY_USER to it.user,
-                    KEY_LIKES to it.likes,
-                    KEY_COMMENTS to it.comments,
-                    KEY_DOWNLOADS to it.downloads
-                )
-            )
+            MaterialAlertDialogBuilder(requireContext())
+                .setMessage(getString(R.string.would_you_like_to_see_more_details))
+                .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                    navigateToDetailPage(it)
+                }
+                .setNegativeButton(getString(R.string.cancel)) { _, _ -> }
+                .show()
+
         }
 
         binding.recyclerView.apply {
@@ -94,6 +95,19 @@ class SearchFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
         }
 
+    }
+
+    private fun navigateToDetailPage(it: Photo) {
+        findNavController().navigate(
+            R.id.action_to_DetailFragment,
+            bundleOf(
+                KEY_LARGE_IMAGE_URL to it.largeImageURL,
+                KEY_USER to it.user,
+                KEY_LIKES to it.likes_formated,
+                KEY_COMMENTS to it.comments_formated,
+                KEY_DOWNLOADS to it.downloads_formated
+            )
+        )
     }
 
     private fun setupObservers() {
