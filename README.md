@@ -30,9 +30,9 @@ A few of the things you can do with app:
 -   FullScreen Image
 
 <p align="center">
-  <img src = https://github.com/hamedsilver/pixabayphoto/blob/main/screenshots/history.jpg width=240 height=420>
-    <img src = https://github.com/hamedsilver/pixabayphoto/blob/main/screenshots/search.jpg width=240 height=420>
-      <img src = https://github.com/hamedsilver/pixabayphoto/blob/main/screenshots/detail.jpg width=240 height=420>
+  <img src = https://github.com/hamedsilver/pixabayphoto/blob/main/app/screenshots/history.jpg width=240 height=420>
+    <img src = https://github.com/hamedsilver/pixabayphoto/blob/main/app/screenshots/search.jpg width=240 height=420>
+      <img src = https://github.com/hamedsilver/pixabayphoto/blob/main/app/screenshots/detail.jpg width=240 height=420>
 </p>
 
 ## Architecture
