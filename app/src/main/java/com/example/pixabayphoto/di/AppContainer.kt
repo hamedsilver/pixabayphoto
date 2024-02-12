@@ -1,6 +1,8 @@
 package com.example.pixabayphoto.di
 
 import android.content.Context
+import com.example.pixabayphoto.data.local.PixabayrDataBase
+import com.example.pixabayphoto.data.local.dao.SearchSuggestionDao
 import com.example.pixabayphoto.data.network.dataSource.PhotosDataSource
 import com.example.pixabayphoto.data.network.dataSource.PhotosNetworkDataSource
 import com.example.pixabayphoto.data.network.service.PhotoService
@@ -24,12 +26,15 @@ class AppContainer(context: Context) {
     //Error Handler
     private val errorHandler: ErrorHandler by lazy { ErrorHandlerImpl() }
 
+    //dataBase
+    private val dataBase : PixabayrDataBase by lazy { PixabayrDataBase.buildDatabase(context) }
+    private val searchDao: SearchSuggestionDao by lazy { dataBase.searchDao() }
 
     //Datasource
     private val dataSource: PhotosDataSource by lazy { PhotosNetworkDataSource(service, errorHandler) }
 
     //Repository
-    private val photosRepository: PhotosRepository by lazy { PhotosRepositoryImpl(dataSource) }
+    private val photosRepository: PhotosRepository by lazy { PhotosRepositoryImpl(searchDao, dataSource) }
 
     //Presentation - viewModelFactory
     val searchViewModelFactory by lazy { SearchViewModelFactory(photosRepository) }
